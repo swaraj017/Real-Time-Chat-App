@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Chat App - Sign Up</title>
+    <style>
+        /* Define CSS variables */
+        :root {
+            --p: hsl(213deg 85% 97%);
+            --s: hsl(233deg 36% 38%);
+            --bg: hsl(218deg 50% 91%);
+            --text-color: hsl(0deg 0% 30%);
+            --shadow: hsl(231deg 62% 94%);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            user-select: none;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: var(--bg);
+            height: 100vh;
+        }
+
+        .container {
+            background: var(--p);
+            padding: 2em;
+            display: flex;
+            flex-direction: column;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px var(--shadow);
+            width: 90%;
+            max-width: 400px;
+            gap: 1.5em;
+        }
+
+        .logo {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1em;
+        }
+
+        .logo img {
+            width: 150px;
+            height: auto;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--text-color);
+        }
+
+        h3 {
+            text-align: center;
+            color: var(--text-color);
+            font-size: 1em;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1em;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-group label {
+            color: var(--text-color);
+            margin-bottom: 0.5em;
+            font-weight: 500;
+        }
+
+        .input-group input {
+            background: #fff;
+            border: 1px solid var(--shadow);
+            border-radius: 10px;
+            padding: 0.8em;
+            font-size: 1em;
+            color: var(--text-color);
+            outline: none;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .input-group input::placeholder {
+            color: hsl(0deg 0% 60%);
+        }
+
+        .login {
+            padding: 0.8em;
+            background: var(--s);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .login:hover {
+            background: hsl(233deg 36% 28%);
+        }
+
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9em;
+            color: var(--text-color);
+            margin-top: 1em;
+        }
+
+        .footer span {
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .footer span:hover {
+            color: var(--s);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="https://img.freepik.com/premium-vector/chat-with-modern-fresh-orange-logo-vector-illustration_825834-11166.jpg" alt="Chat App Logo">
+        </div>
+        <h1>Sign Up</h1>
+        <h3>{{ message }}</h3>
+        <form method="post" action="/signup">
+            <div class="input-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required>
+            </div>
+            <div class="input-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+            </div>
+            <button type="submit" class="login">Submit</button>
+        </form>
+        <div class="footer">
+            Already have an account?<a href="/login"> Log In</a>
+            <a>Forgot Password?</a>
+        </div>
+    </div>
+</body>
+</html>

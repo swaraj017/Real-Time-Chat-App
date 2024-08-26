@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        /* Define CSS variables */
+        :root {
+            --p: hsl(213deg 85% 97%);
+            --s: hsl(233deg 36% 38%);
+            --bg: hsl(218deg 50% 91%);
+            --text-color: hsl(0deg 0% 30%);
+            --shadow: hsl(231deg 62% 94%);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            user-select: none;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: var(--bg);
+            height: 100vh;
+        }
+
+        .container {
+            background: var(--p);
+            padding: 2em;
+            display: flex;
+            flex-direction: column;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px var(--shadow);
+            width: 90%;
+            max-width: 400px;
+            gap: 1.5em;
+        }
+
+        .logo {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1em;
+        }
+
+        .logo img {
+            width: 120px;
+            height: auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--text-color);
+        }
+
+        h3 {
+            text-align: center;
+            color: var(--text-color);
+            font-size: 1em;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1em;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-group label {
+            color: var(--text-color);
+            margin-bottom: 0.5em;
+            font-weight: 500;
+        }
+
+        .input-group input {
+            background: #fff;
+            border: 1px solid var(--shadow);
+            border-radius: 10px;
+            padding: 0.8em;
+            font-size: 1em;
+            color: var(--text-color);
+            outline: none;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .input-group input::placeholder {
+            color: hsl(0deg 0% 60%);
+        }
+
+        .login {
+            padding: 0.8em;
+            background: var(--s);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .login:hover {
+            background: hsl(233deg 36% 28%);
+        }
+        img
+        {
+            width: 150px;
+            height: auto;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+
+
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <center><img src="https://img.freepik.com/premium-vector/chat-with-modern-fresh-orange-logo-vector-illustration_825834-11166.jpg" alt="Chat App Logo"></center>
+        <h1>My Chatt App</h1>
+        <h3>Hi {% if current_user.is_authenticated %}{{ current_user.username }}{% else %}Guest{% endif %}!</h3>
+        <form action="/chatt">
+            <div class="input-group">
+                <label for="username">Enter Username:</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required>
+            </div>
+            <div class="input-group">
+                <label for="room">Enter RoomId:</label>
+                <input type="text" id="room" name="room" placeholder="Enter room ID" required>
+            </div>
+            <button type="submit" class="login">Submit</button>
+        </form>
+
+           <center><a href="/logout">LogOut</a></center>
+        </div>
+
+</body>
+</html>
+
+
+<!--
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <style>
+        /* Define CSS variables */
+        :root {
+            --p: hsl(213deg 85% 97%);
+            --s: hsl(233deg 36% 38%);
+            --bg: hsl(218deg 50% 91%);
+            --text-color: hsl(0deg 0% 30%);
+            --shadow: hsl(231deg 62% 94%);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            user-select: none;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: var(--bg);
+            height: 100vh;
+        }
+
+        .container {
+            background: var(--p);
+            padding: 2em;
+            display: flex;
+            flex-direction: column;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px var(--shadow);
+            width: 90%;
+            max-width: 600px;
+            height: 80vh;
+            overflow: hidden;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1em;
+        }
+
+        .header img {
+            width: 90px; /* Adjust size as needed */
+            height: auto;
+            margin-right: 1em;
+        }
+
+        .header h1 {
+            color: var(--text-color);
+            font-size: 1.5em;
+            margin: 0;
+        }
+
+        #members {
+            margin-bottom: 1em;
+            background: #fff;
+            border: 1px solid var(--shadow);
+            border-radius: 10px;
+            padding: 1em;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            overflow-y: auto;
+        }
+
+        #messages {
+            margin-bottom: 1em;
+            background: #fff;
+            border: 1px solid var(--shadow);
+            border-radius: 10px;
+            padding: 1em;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            overflow-y: auto;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message {
+            display: flex;
+            margin-bottom: 1em;
+        }
+
+        .message.sender {
+            justify-content: flex-end;
+        }
+
+        .message.receiver {
+            justify-content: flex-start;
+        }
+
+        .message-content {
+            background: #f1f1f1;
+            border: 1px solid var(--shadow);
+            border-radius: 10px;
+            padding: 0.8em;
+            max-width: 60%;
+            word-wrap: break-word;
+        }
+
+        .message.sender .message-content {
+            background: var(--s);
+            color: #fff;
+        }
+
+        .message.receiver .message-content {
+            background: #e0e0e0;
+            color: var(--text-color);
+        }
+
+        #members-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #members-list li {
+            margin-bottom: 0.5em;
+        }
+
+        form {
+            display: flex;
+            gap: 0.5em;
+            margin-top: auto;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 0.8em;
+            border: 1px solid var(--shadow);
+            border-radius: 10px;
+            font-size: 1em;
+            color: var(--text-color);
+            outline: none;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        button {
+            padding: 0.8em;
+            background: var(--s);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: hsl(233deg 36% 28%);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="https://img.freepik.com/premium-vector/chat-with-modern-fresh-orange-logo-vector-illustration_825834-11166.jpg" alt="Chat App Logo">
+            <h1>Welcome to Chat Room {{ room }}</h1>
+        </div>
+
+        <div id="members">
+            <h3>Members Of Room:</h3>
+            <ul id="members-list"></ul>
+        </div>
+
+        <div id="messages">
+
+        </div>
+
+        <form id="message-input-form">
+            <input type="text" placeholder="Enter your message" id="message_input">
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.min.js"></script>
+    <script>
+        const socket = io.connect("http://127.0.0.1:5000");
+
+        socket.on('connect', function() {
+            socket.emit('join_room', {
+                username: "{{username}}",
+                room: "{{room}}"
+            });
+        });
+
+        const messageInput = document.getElementById('message_input');
+        document.getElementById('message-input-form').onsubmit = function(e) {
+            e.preventDefault();
+            let message = messageInput.value.trim();
+
+            if (message.length) {
+                socket.emit('send_message', {
+                    username: "{{username}}",
+                    room: "{{room}}",
+                    message: message
+                });
+                messageInput.value = "";
+                messageInput.focus();
+            }
+        };
+
+        socket.on("receive_mess", function(data){
+            const newMessage = document.createElement('div');
+            newMessage.className = `message ${data.username === "{{username}}" ? 'sender' : 'receiver'}`;
+            newMessage.innerHTML = `<div class="message-content">${data.username}: ${data.message}</div>`;
+            document.getElementById('messages').appendChild(newMessage);
+            document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight; // Scroll to bottom
+        });
+
+        socket.on('update_members', function(data) {
+            const membersList = document.getElementById('members-list');
+            membersList.innerHTML = '';
+            data.users.forEach(function(user) {
+                const listItem = document.createElement('li');
+                listItem.textContent = user;
+                membersList.appendChild(listItem);
+            });
+        });
+
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////////
+socket.on("receive_mess", function(data){-->
+<!--        console.log(data);-->
+<!--        const newNode = document.createElement('div');-->
+<!--        newNode.innerHTML = `${data.username}:&nbsp;&nbsp; ${data.message}`;-->
+<!--        document.getElementById('messages').appendChild(newNode);-->
+<!--    });-->
+
+<!--    socket.on('join_room_announcement', function(data) {-->
+<!--        console.log(data);-->
+<!--        const newNode = document.createElement('div');-->
+<!--        newNode.innerHTML = `${data.username} has joined the room`;-->
+<!--        document.getElementById('messages').appendChild(newNode);-->

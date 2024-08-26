@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        :root {
+            --primary-bg: hsl(213deg 85% 97%);
+            --secondary-bg: hsl(233deg 36% 38%);
+            --header-bg: hsl(218deg 50% 91%);
+            --text-color: hsl(0deg 0% 30%);
+            --shadow-color: hsl(231deg 62% 94%);
+            --button-bg: #00d084;
+            --button-hover-bg: #00b365;
+            --message-bg-sender: hsl(233deg 36% 38%);
+            --message-bg-receiver: #e0e0e0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            user-select: none;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: var(--header-bg);
+            height: 100vh;
+        }
+
+        .container {
+            background: var(--primary-bg);
+            padding: 1em;
+            display: flex;
+            flex-direction: column;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px var(--shadow-color);
+            width: 95%;
+            max-width: 600px;
+            height: 90vh;
+            overflow: hidden;
+        }
+
+        .header {
+            background-image: url("https://i.pinimg.com/originals/9d/b1/13/9db113b763bddb3be5e0abf2141c061a.jpg");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            margin-bottom: 1em;
+            padding: 0.5em;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .header img {
+            width: 50px;
+            height: auto;
+            margin-right: 1em;
+            border-radius: 50%;
+        }
+
+        .header h1 {
+            color: white;
+            font-size: 1.2em;
+            margin: 0;
+            flex: 1;
+        }
+
+        .call-icons {
+            display: flex;
+            gap: 1em;
+        }
+
+        .call-icons i {
+            font-size: 1.5em;
+            color: white;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .call-icons i:hover {
+            color: var(--button-bg);
+        }
+
+        #members {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1em;
+            background: #fff;
+            border: 1px solid var(--shadow-color);
+            border-radius: 10px;
+            padding: 1em;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        #members form {
+            display: flex;
+            align-items: center;
+        }
+
+        #members form button {
+            background: red;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 0.8em;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        #members form button:hover {
+            background: darkred;
+        }
+
+        #members div {
+            display: flex;
+            flex-direction: column;
+            margin-left: 1em;
+        }
+
+        #members h3 {
+            margin-bottom: 0.5em;
+        }
+
+        #members-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5em;
+            overflow-y: auto;
+        }
+
+        #messages {
+            background-image: url("https://th.bing.com/th/id/OIP.nuJ8Y6CrqsHJZz6kL5k24gHaQC?rs=1&pid=ImgDetMain");
+            background-size: cover;
+            background-position: center;
+            margin-bottom: 1em;
+            border: 1px solid var(--shadow-color);
+            border-radius: 10px;
+            padding: 1em;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            overflow-y: auto;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message {
+            display: flex;
+            margin-bottom: 1em;
+        }
+
+        .message.sender {
+            justify-content: flex-end;
+        }
+
+        .message.receiver {
+            justify-content: flex-start;
+        }
+
+        .message-content {
+            background: #f1f1f1;
+            border: 1px solid var(--shadow-color);
+            border-radius: 10px;
+            padding: 0.8em;
+            max-width: 60%;
+            word-wrap: break-word;
+        }
+
+        .message.sender .message-content {
+            background: var(--message-bg-sender);
+            color: #fff;
+        }
+
+        .message.receiver .message-content {
+            background: var(--message-bg-receiver);
+            color: var(--text-color);
+        }
+
+        form {
+            display: flex;
+            gap: 0.5em;
+            margin-top: auto;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 0.8em;
+            border: 1px solid var(--shadow-color);
+            border-radius: 10px;
+            font-size: 1em;
+            color: var(--text-color);
+            outline: none;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        .announcement {
+    color: #fff; /* White text color */
+    padding: 0.8em;
+    border-radius: 10px;
+    margin-bottom: 1em;
+    font-size: 0.9em;
+    text-align: center;
+    border: 1px solid var(--shadow-color);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+        button {
+            padding: 0.8em;
+            background: var(--secondary-bg);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: var(--button-hover-bg);
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 1em;
+            }
+
+            .header img {
+                width: 40px;
+            }
+
+            .container {
+                width: 100%;
+                height: 100vh;
+                padding: 0.5em;
+            }
+
+            #members {
+                flex-direction: column;
+                align-items: stretch;
+                font-size: 0.9em;
+            }
+
+            #members form {
+                margin: 0;
+                align-items: center;
+                justify-content: center;
+                margin-top: 1em;
+            }
+
+            #members-list {
+                font-size: 0.9em;
+            }
+
+            #messages {
+                font-size: 0.9em;
+            }
+
+            .message-content {
+                max-width: 80%;
+            }
+
+            input[type="text"] {
+                padding: 0.6em;
+            }
+
+            button {
+                padding: 0.6em;
+                font-size: 0.9em;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                text-align: center;
+            }
+
+            .header img {
+                margin-bottom: 0.5em;
+            }
+
+            .call-icons {
+                margin-top: 1.1rem;
+                font-size: 0.8em;
+            }
+
+            .header h1 {
+                margin-top: 0.9em;
+                font-size: 1.2em;
+            }
+
+            .container {
+                padding: 0.3em;
+            }
+
+            #members {
+                font-size: 0.8em;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+
+            #members form {
+                margin: 0;
+                align-items: center;
+                justify-content: center;
+                margin-top: 1em;
+            }
+
+            #members-list {
+                font-size: 0.8em;
+            }
+
+            #messages {
+                font-size: 0.8em;
+            }
+
+            .message-content {
+                max-width: 90%;
+            }
+
+            input[type="text"] {
+                padding: 0.5em;
+            }
+
+            button {
+                padding: 0.5em;
+                font-size: 0.8em;
+                margin-right: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="https://img.freepik.com/premium-vector/chat-with-modern-fresh-orange-logo-vector-illustration_825834-11166.jpg" alt="Chat App Logo">
+            <h1>Welcome to Chat Room {{ room }}</h1>
+            <div class="call-icons">
+                <i class="fa-solid fa-phone" title="Voice Call"></i>
+                <i class="fa-solid fa-video" title="Video Call"></i>
+            </div>
+        </div>
+
+        <div id="members">
+            <div>
+                <h3>Members Of Room:</h3>
+                <ul id="members-list">
+                    {% for member in members %}
+                        <li>{{ member }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div>
+                <form action="{{ url_for('delete_chat', room=room) }}" method="post">
+                    <button type="submit" id="close-session-btn">
+                        <i class="fa-brands fa-x-twitter"></i>&nbsp; Delete
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div id="messages">
+            <!-- Messages will be inserted here -->
+            {% for message in messages %}
+                <div class="message {{ 'sender' if message.username == username else 'receiver' }}">
+                    <div class="message-content">{{ message.username }}: {{ message.message }}</div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <form id="message-input-form">
+            <input type="text" placeholder="Enter your message" id="message_input">
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.min.js"></script>
+     <script>
+    const socket = io.connect("http://127.0.0.1:5000");
+
+    socket.on('connect', function() {
+        socket.emit('join_room', {
+            username: "{{username}}",
+            room: "{{room}}"
+        });
+    });
+
+    window.addEventListener('beforeunload', function() {
+        socket.emit('leave_room', {
+            username: "{{username}}",
+            room: "{{room}}"
+        });
+    });
+
+    document.getElementById('message-input-form').onsubmit = function(e) {
+        e.preventDefault();
+        let message = document.getElementById('message_input').value.trim();
+
+        if (message.length) {
+            socket.emit('send_message', {
+                username: "{{username}}",
+                room: "{{room}}",
+                message: message
+            });
+            document.getElementById('message_input').value = "";
+        }
+    };
+
+    document.getElementById('close-session-btn').addEventListener('click', function() {
+        socket.emit('leave_room', {
+            username: "{{username}}",
+            room: "{{room}}"
+        });
+    });
+
+    socket.on('receive_mess', function(data) {
+        const newMessage = document.createElement('div');
+        newMessage.className = `message ${data.username === "{{username}}" ? 'sender' : 'receiver'}`;
+        newMessage.innerHTML = `<div class="message-content">${data.username}: ${data.message}</div>`;
+        document.getElementById('messages').appendChild(newMessage);
+        document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
+    });
+
+    socket.on('join_room_announcement', function(data) {
+        if (data.username !== "{{username}}") {
+            const newNode = document.createElement('div');
+            newNode.className = 'announcement'; // Apply the new CSS class
+            newNode.innerHTML = `<b>${data.username}</b> has joined`;
+            document.getElementById('messages').appendChild(newNode);
+            setTimeout(() => {
+            newNode.remove();
+        }, 5000);
+        }
+    });
+
+    socket.on('leave_room_announcement', function(data) {
+        if (data.username !== "{{username}}") {
+            const newNode = document.createElement('div');
+            newNode.className = 'announcement'; // Apply the new CSS class
+            newNode.innerHTML = `<b>${data.username}</b> has left`;
+            document.getElementById('messages').appendChild(newNode);
+            setTimeout(() => {
+        newNode.remove();
+    }, 5000);
+        }
+
+    });
+</script>
+
+
+</body>
+</html>
