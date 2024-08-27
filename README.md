@@ -11,7 +11,7 @@ Real-Time Messaging: Users can send and receive messages instantly.
 Room Management: Users can join, leave rooms, and delete chat messages.
 
 Current Working
-![photo-collage png](https://github.com/user-attachments/assets/b355afb0-455f-410a-a9d4-07fec58fddb5)
+https://github.com/user-attachments/assets/89408aec-24be-42cd-a2f2-4d7ff34b045b
 
 Upcoming Features
 
