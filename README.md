@@ -10,6 +10,9 @@ User Authentication: Secure login and session management.
 Real-Time Messaging: Users can send and receive messages instantly.
 Room Management: Users can join, leave rooms, and delete chat messages.
 
+Current Working
+![photo-collage png](https://github.com/user-attachments/assets/b355afb0-455f-410a-a9d4-07fec58fddb5)
+
 Upcoming Features
 
 Voice and Video Calls: Integration for voice and video communication.
