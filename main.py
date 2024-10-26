@@ -13,13 +13,13 @@ login_manager.init_app(app)
 login_manager.login_view = 'login'
 
 @app.route('/')
-def home():
-    return render_template("home.html")
+def index():
+    return render_template("index.html")  # Corrected template filename
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('home'))
+        return redirect(url_for('index'))
 
     message = ""
     if request.method == "POST":
@@ -28,7 +28,7 @@ def login():
         user = get_user(username)
         if user and user.check_password(password_input):
             login_user(user)
-            return redirect(url_for("home"))
+            return redirect(url_for("index"))
         else:
             message = "Failed to Login"
     return render_template('login.html', message=message)
@@ -37,12 +37,12 @@ def login():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for("home"))
+    return redirect(url_for("index"))
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if current_user.is_authenticated:
-        return redirect(url_for('home'))
+        return redirect(url_for('index'))
 
     message = ''
     if request.method == 'POST':
@@ -75,7 +75,7 @@ def chat():
         return render_template("chat.html", username=username, room=room, members=members, messages=messages)
     else:
         # Handle the case where username or room is not provided
-        return redirect(url_for("home"))
+        return redirect(url_for("index"))
 
 @app.route('/delete_room/<room>', methods=['POST'])
 @login_required
@@ -83,7 +83,7 @@ def delete_chat(room):
     # Check if the user is authorized to delete the room (implement your own logic here)
     if current_user.is_authenticated:
         delete_room(room)
-        return redirect(url_for('home'))
+        return redirect(url_for('index'))
     else:
         return redirect(url_for('login'))
 

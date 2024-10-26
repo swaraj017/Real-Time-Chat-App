@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        /* Define CSS variables */
+        :root {
+            --p: hsl(213deg 85% 97%);
+            --s: hsl(233deg 36% 38%);
+            --bg: hsl(218deg 50% 91%);
+            --text-color: hsl(0deg 0% 30%);
+            --shadow: hsl(231deg 62% 94%);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            user-select: none;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: var(--bg);
+            height: 100vh;
+        }
+
+        .container {
+            background: var(--p);
+            padding: 2em;
+            display: flex;
+            flex-direction: column;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px var(--shadow);
+            width: 90%;
+            max-width: 400px;
+            gap: 1.5em;
+        }
+
+        .logo {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1em;
+        }
+
+        .logo img {
+            width: 120px;
+            height: auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--text-color);
+        }
+
+        h3 {
+            text-align: center;
+            color: var(--text-color);
+            font-size: 1em;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1em;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-group label {
+            color: var(--text-color);
+            margin-bottom: 0.5em;
+            font-weight: 500;
+        }
+
+        .input-group input {
+            background: #fff;
+            border: 1px solid var(--shadow);
+            border-radius: 10px;
+            padding: 0.8em;
+            font-size: 1em;
+            color: var(--text-color);
+            outline: none;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .input-group input::placeholder {
+            color: hsl(0deg 0% 60%);
+        }
+
+        .login {
+            padding: 0.8em;
+            background: var(--s);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .login:hover {
+            background: hsl(233deg 36% 28%);
+        }
+        img
+        {
+            width: 150px;
+            height: auto;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+
+
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <center><img src="https://img.freepik.com/premium-vector/chat-with-modern-fresh-orange-logo-vector-illustration_825834-11166.jpg" alt="Chat App Logo"></center>
+        <h1>My Chatt App</h1>
+        <h3>Hi {% if current_user.is_authenticated %}{{ current_user.username }}{% else %}Guest{% endif %}!</h3>
+        <form action="/chatt">
+            <div class="input-group">
+                <label for="username">Enter Username:</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required>
+            </div>
+            <div class="input-group">
+                <label for="room">Enter RoomId:</label>
+                <input type="text" id="room" name="room" placeholder="Enter room ID" required>
+            </div>
+            <button type="submit" class="login">Submit</button>
+        </form>
+
+           <center><a href="/logout">LogOut</a></center>
+        </div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
