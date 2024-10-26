@@ -1,7 +1,16 @@
+<<<<<<< HEAD
 bson
 werkzeug
 flask
 flask-socketio
 eventlet
 pymongo
+=======
+bson
+werkzeug
+flask
+flask-socketio
+eventlet
+pymongo
+>>>>>>> 99426dce76bb1765466f2af342b9e77f3c1b73c7
 flask-login
