@@ -1,11 +1,16 @@
+import os
 from pymongo import MongoClient, errors
 from werkzeug.security import generate_password_hash
 from user import User
 import hashlib
 from datetime import datetime
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Connect to MongoDB
-client = MongoClient("mongodb+srv://swaraj:1991@chattapp.jrylb.mongodb.net/?retryWrites=true&w=majority&appName=ChattApp")
+client = MongoClient(os.getenv("MONGODB_URI"))
 chat_db = client.get_database("ChatDb")
 
 # Collections
